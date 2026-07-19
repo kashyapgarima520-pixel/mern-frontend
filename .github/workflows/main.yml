@@ -1,29 +1,26 @@
-name: FrontendDeployment
-
+name: SeedlyFrontendDeployment
 
 on:
   push:
     branches:
       - main
 
-
 jobs:
   jomarji:
     runs-on: ubuntu-latest
     steps:
-  - name: git se code uthana hai
-    uses: actions/checkout@v4
-  - name: matchmaking
-    uses: appleboy/ssh-action@v1.2.0
+      - name: git se code uthana hai
+        uses: actions/checkout@v4
 
-
-    with:
-      host: ${{secrets.IP}}
-      username: ${{secrets.USERNAME}}
-      password: ${{secrets.PASSWORD}}
-      script: |
-      cd //home/garima/mern-frontend
-      git pull origin main
-      sudo npm i
-      sudo npm run build
-      pm2 restart Frontend || pm2 start npm --name "Frontend" -- run dev
+      - name: matchmaking
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{secrets.IP}}
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          script: |
+            cd /home/garima/mern-frontend
+            git pull origin main
+            sudo npm i
+            sudo npm run build
+            pm2 restart Frontend || pm2 start npm --name "Frontend" -- run dev
